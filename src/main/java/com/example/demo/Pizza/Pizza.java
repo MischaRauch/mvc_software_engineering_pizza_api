@@ -60,6 +60,7 @@ public class Pizza {
     public int getId() {return this.id;}
     public boolean getVegetarian() {return this.vegetarian;}
     public double getPrice() {return this.price;}
+    public String getNote() { return note; }
 
     public String toString() {
         return ("Pizza Type:"+this.getType());
