@@ -10,6 +10,7 @@ public class Pizza {
     private int id;
     private boolean vegetarian;
     private double price;
+    private String note;
     private String type;
    // private final List<String> toppings = Arrays.asList(topping);
     private final double defaultPrice = 13;
@@ -37,6 +38,15 @@ public class Pizza {
         this.id = idCounter;
         this.vegetarian = vegetarian;
         this.price = price;
+        this.toppings= toppings;
+        idCounter++;
+    }
+    public Pizza(String type, boolean vegetarian, double price, String[] toppings, String note) {
+        this.type = type;
+        this.id = idCounter;
+        this.vegetarian = vegetarian;
+        this.price = price;
+        this.note = note;
         this.toppings= toppings;
         idCounter++;
     }

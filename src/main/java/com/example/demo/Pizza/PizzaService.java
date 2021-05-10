@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class PizzaService extends RuntimeException {
 
-    private LinkedList<Pizza> menu = new LinkedList<Pizza>();
+    private List<Pizza> menu = new ArrayList<>();
 
 
 	public List<Pizza> getPizza() {
-		//return List.of(new Pizza("magahrita"));
         if (menu.isEmpty()) {
             addMenu();
         }
@@ -24,7 +23,6 @@ public class PizzaService extends RuntimeException {
     }
 
     public void addNewPizza(Pizza pizza) {
-        //System.out.println(pizza);
         menu.add(pizza);
     }
 

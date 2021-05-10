@@ -7,17 +7,21 @@ import java.util.List;
 import java.util.Timer;
 
 public class Order {
-    private static int costumer_id;
+    private int costumer_id;
+    private  static int numberOfOrders =1;
+    private int id;
     private String status;
     private String payment_type;
-    private Timer countTime;
     private Time initial_time;
     private Time delivery_time; //expected delivery time
-    //private final LinkedList<String> delivery_address;
+    private List <Pizza> pizzas;
+    private List<String> delivery_address;
     private final boolean takeaway;
 
-    public Order(String status, String payment_type, LinkedList<String> delivery_address, boolean takeaway, int costumer_id) {
-        this.status = status;
+    public Order(String payment_type, List<String> delivery_address, boolean takeaway, int costumer_id, List <Pizza> order) {
+        status = "In Progress";
+        this.pizzas = pizzas;
+        this.id = numberOfOrders; numberOfOrders++;
         this.costumer_id = costumer_id;
         this.payment_type = payment_type;
         this.takeaway = takeaway;
@@ -29,6 +33,9 @@ public class Order {
         //set up initial time
         //decide on expected delivery time
 
+    }
+    public int getCostumer_id(){
+        return costumer_id;
     }
 
     public Time getInitial_time(){ //when was the pizza ordered
@@ -42,6 +49,35 @@ public class Order {
     public Time getDelivery_time(){
         return delivery_time;
     }
+
+    public static int getNumberOfOrders() {
+        return numberOfOrders;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getPayment_type() {
+        return payment_type;
+    }
+
+    public List<Pizza> getPizzas() {
+        return pizzas;
+    }
+
+    public List<String> getDelivery_address() {
+        return delivery_address;
+    }
+
+    public boolean isTakeaway() {
+        return takeaway;
+    }
+
 
 }
 
