@@ -5,7 +5,7 @@ import java.util.*;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PizzaService {
+public class PizzaService extends RuntimeException {
 
     private LinkedList<Pizza> menu = new LinkedList<Pizza>();
 
