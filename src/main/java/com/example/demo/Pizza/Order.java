@@ -30,14 +30,16 @@ public class Order {
     private List <Pizza> pizzas;
     private DeliveryAddress delivery_address;
     private final boolean takeaway;
+    private String note;
 
-    public Order(String payment_type, DeliveryAddress delivery_address, boolean takeaway, int customer_id, List <Pizza> order) {
+    public Order(String payment_type, DeliveryAddress delivery_address, boolean takeaway, int customer_id, List <Pizza> order, String note) {
         status = "In Progress";
         this.pizzas = order;
         this.order_id = numberOfOrders; numberOfOrders++;
         this.customer_id = customer_id;
         this.payment_type = payment_type;
         this.takeaway = takeaway;
+        this.note = note;
         if (takeaway==false){
             this.delivery_address= delivery_address;
         }
@@ -63,7 +65,7 @@ public class Order {
         return numberOfOrders;
     }
 
-    public int order_id() {
+    public int getOrder_id() {
         return order_id;
     }
 
@@ -83,9 +85,19 @@ public class Order {
         return delivery_address;
     }
 
-    public boolean isTakeaway() {
-        return takeaway;
+    public String getNote(){ return note;    }
+
+
+    public int minutesPassed(){
+       LocalDateTime currentTime = LocalDateTime.now();
+       return currentTime.minusMinutes(initialTime.getMinute()).getMinute();
     }
+
+    public void setStatus(String status){
+        this.status= status;
+    }
+
+
 
 
 }

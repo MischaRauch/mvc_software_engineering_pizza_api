@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "api/v1")
 public class PizzaController {
-    
+
     private final PizzaService pizzaService;
     private List<Order> pizzaOrders;
 
@@ -31,17 +31,16 @@ public class PizzaController {
     }
 
     @GetMapping("/pizza")
-	public List<Pizza> returnPizza() {
+    public List<Pizza> returnPizza() {
         return pizzaService.getPizza();
-	}
+    }
 
-	@GetMapping(path = "/pizza/{id}")
+    @GetMapping(path = "/pizza/{id}")
     public Pizza returnSinglePizza(@PathVariable String id) {
         try {
             int id2 = Integer.parseInt(id);
             return pizzaService.getSinglePizza(id2);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ApiRequestException("Pizza not found", "404");
         }
     }
@@ -50,26 +49,25 @@ public class PizzaController {
     @GetMapping("/order/{costumer_id}")
     public List<Order> returnAllOrders(@PathVariable String costumer_id) {
         List<Order> costumerAllOrders = new ArrayList<>();
-        System.out.println("SIZE "+costumerAllOrders.size());
+        System.out.println("SIZE " + costumerAllOrders.size());
         try {
             int costumer_id2 = Integer.parseInt(costumer_id);
-            for (int i =0; i<pizzaOrders.size(); i++){
-                System.out.println("CUSTOMER ID 1 "+pizzaOrders.get(i).getCostumer_id());
-                System.out.println("CUSTOMER ID 2 "+costumer_id2);
-                if (pizzaOrders.get(i).getCostumer_id()==costumer_id2){
+            for (int i = 0; i < pizzaOrders.size(); i++) {
+                System.out.println("CUSTOMER ID 1 " + pizzaOrders.get(i).getCostumer_id());
+                System.out.println("CUSTOMER ID 2 " + costumer_id2);
+                if (pizzaOrders.get(i).getCostumer_id() == costumer_id2) {
                     costumerAllOrders.add(pizzaOrders.get(i));
                     return costumerAllOrders;
                 }
             }
             throw new ApiRequestException("Customer ID not found", "404");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ApiRequestException("Invalid ID supplied", "400");
         }
     }
 
     @PostMapping("/order")
-    public Order createOrder(@RequestBody Order order){
+    public Order createOrder(@RequestBody Order order) {
         pizzaOrders.add(order);
         //System.out.println(order.getCostumer_id());
         return order;
@@ -88,25 +86,38 @@ public class PizzaController {
                 }
             }
             throw new ApiRequestException("Order not found", "404");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ApiRequestException("Order not found", "404");
         }
     }
 
-/**
-    SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.serializeAllExcept("toppings", "note");
-    FilterProvider filterProvider = new SimpleFilterProvider().addFilter("toppings_note_filter", simpleBeanPropertyFilter);
+    @PutMapping("/order/cancel/{order_id}")
+    public Order cancelOrder(@PathVariable String order_id) {
+        Order order = null;
+        int order_id2;
+        try {
+            order_id2 = Integer.parseInt(order_id);
+        } catch (Exception e) {
+            throw new ApiRequestException("Invalid ID supplied", "400");
+        }
+        for (int i = 0; i < pizzaOrders.size(); i++) {
+            if (pizzaOrders.get(i).getOrder_id() == order_id2) { // find order
+                order = pizzaOrders.get(i);
+                break;
+            }
+        }
+        if (order == null) { //order not found
+            throw new ApiRequestException("Order not found.", "404");
+        } else if (order.getStatus().equalsIgnoreCase("cancelled") || order.getStatus().equalsIgnoreCase("delivered")) {
+            throw new ApiRequestException("Unable to cancel an already cancelled or delivered order.", "422");
+        } else if (order.minutesPassed() > 5) { //more than 5 minutes have passed
+            throw new ApiRequestException("Unable to cancel your order after 5 minutes have elapsed.", "412");
+        } else {
+            order.setStatus("cancelled");
+            return order; //maybe we shouldnt return entire order, but only the status and the order_id?
+        }
 
-    List<MappingJacksonValue> mappingJacksonValue = new ArrayList<>();
-    List<Pizza> mappedPizzas = pizzaService.getPizza();
-        for (int i = 0; i<mappedPizzas.size(); i++){
-        mappingJacksonValue.set(i)= new MappingJacksonValue(mappedPizzas.get(i));
-        mappingJacksonValue.get(i).setFilters(filterProvider);
     }
-        return mappingJacksonValue;
-*/
-
 
 
 }

@@ -6,7 +6,6 @@ public class Pizza {
     private int pizza_id;
     private boolean vegetarian;
     private double price;
-    private String note;
     private String name;
     private final double defaultPrice = 13;
 
@@ -41,7 +40,6 @@ public class Pizza {
         this.pizza_id = idCounter;
         this.vegetarian = vegetarian;
         this.price = price;
-        this.note = note;
         this.toppings= toppings;
         idCounter++;
     }
@@ -55,7 +53,6 @@ public class Pizza {
     public int getPizza_id() {return this.pizza_id;}
     public boolean getVegetarian() {return this.vegetarian;}
     public double getPrice() {return this.price;}
-    public String getNote() { return note; }
 
     public String toString() {
         return ("Pizza Type:"+this.getName());
