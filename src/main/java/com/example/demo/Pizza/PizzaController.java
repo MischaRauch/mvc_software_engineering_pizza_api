@@ -29,14 +29,13 @@ public class PizzaController {
 	}
 
 	@GetMapping(path = "/pizza/{id}")
-     //public Pizza returnSinglePizza(@PathVariable(value = "id", defaultValue = "1") String id) {
     public Pizza returnSinglePizza(@PathVariable String id) {
         try {
             int id2 = Integer.parseInt(id);
             return pizzaService.getSinglePizza(id2);
         }
         catch (Exception e) {
-            throw new ApiRequestException("This Pizza is not yet in our menu");
+            throw new ApiRequestException("Pizza ID not found in server database.");
         }
     }
 
@@ -60,7 +59,7 @@ public class PizzaController {
     @PostMapping("/order")
     public Order createOrder(@RequestBody Order order){
         pizzaOrders.add(order);
-        System.out.println(order.getCostumer_id());
+        //System.out.println(order.getCostumer_id());
         return order;
     }
 

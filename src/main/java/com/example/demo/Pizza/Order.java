@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Timer;
 
 public class Order {
-    private int costumer_id;
+    private int customer_id;
     private  static int numberOfOrders =1;
     private int id;
     private String status;
@@ -15,18 +15,18 @@ public class Order {
     private Time initial_time;
     private Time delivery_time; //expected delivery time
     private List <Pizza> pizzas;
-    private List<String> delivery_address;
+    private DeliveryAddress delivery_address;
     private final boolean takeaway;
 
-    public Order(String payment_type, List<String> delivery_address, boolean takeaway, int costumer_id, List <Pizza> order) {
+    public Order(String payment_type, DeliveryAddress delivery_address, boolean takeaway, int customer_id, List <Pizza> order) {
         status = "In Progress";
-        this.pizzas = pizzas;
+        this.pizzas = order;
         this.id = numberOfOrders; numberOfOrders++;
-        this.costumer_id = costumer_id;
+        this.customer_id = customer_id;
         this.payment_type = payment_type;
         this.takeaway = takeaway;
         if (takeaway==false){
-            delivery_address = delivery_address;
+            this.delivery_address= delivery_address;
         }
 
         Timer countTime = new Timer();
@@ -35,7 +35,7 @@ public class Order {
 
     }
     public int getCostumer_id(){
-        return costumer_id;
+        return customer_id;
     }
 
     public Time getInitial_time(){ //when was the pizza ordered
@@ -70,7 +70,7 @@ public class Order {
         return pizzas;
     }
 
-    public List<String> getDelivery_address() {
+    public DeliveryAddress getDelivery_address() {
         return delivery_address;
     }
 
