@@ -1,11 +1,14 @@
 package com.example.demo.exception;
 
 public class ApiRequestException extends RuntimeException{
-    public ApiRequestException(String message) {
+    private static String errorCode;
+    public ApiRequestException() { }
+    public ApiRequestException(String message, String errorCode) {
         super(message);
+        this.errorCode = errorCode;
     }
 
-    public ApiRequestException(String message, Throwable cause) {
-        super(message, cause);
+    public String getErrorCode() {
+        return errorCode;
     }
 }

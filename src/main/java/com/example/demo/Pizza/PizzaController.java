@@ -39,7 +39,7 @@ public class PizzaController {
             return pizzaService.getSinglePizza(id2);
         }
         catch (Exception e) {
-            throw new ApiRequestException("Pizza ID not found in server database.");
+            throw new ApiRequestException("Pizza not found", "404");
         }
     }
 
@@ -56,7 +56,7 @@ public class PizzaController {
             return costumerAllOrders;
         }
         catch (Exception e) {
-            throw new ApiRequestException("Invalid ID supplied");
+            throw new ApiRequestException("Invalid ID supplied", "408");
         }
     }
 
