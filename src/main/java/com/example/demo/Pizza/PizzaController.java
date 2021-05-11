@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.example.demo.exception.ApiRequestException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
@@ -43,20 +46,25 @@ public class PizzaController {
         }
     }
 
+    @JsonView(Views.Short.class)
     @GetMapping("/order/{costumer_id}")
     public List<Order> returnAllOrders(@PathVariable String costumer_id) {
         List<Order> costumerAllOrders = new ArrayList<>();
+        System.out.println("SIZE "+costumerAllOrders.size());
         try {
             int costumer_id2 = Integer.parseInt(costumer_id);
             for (int i =0; i<pizzaOrders.size(); i++){
+                System.out.println("CUSTOMER ID 1 "+pizzaOrders.get(i).getCostumer_id());
+                System.out.println("CUSTOMER ID 2 "+costumer_id2);
                 if (pizzaOrders.get(i).getCostumer_id()==costumer_id2){
                     costumerAllOrders.add(pizzaOrders.get(i));
+                    return costumerAllOrders;
                 }
             }
-            return costumerAllOrders;
+            throw new ApiRequestException("Customer ID not found", "404");
         }
         catch (Exception e) {
-            throw new ApiRequestException("Invalid ID supplied", "408");
+            throw new ApiRequestException("Invalid ID supplied", "400");
         }
     }
 
@@ -66,6 +74,26 @@ public class PizzaController {
         //System.out.println(order.getCostumer_id());
         return order;
     }
+
+    @JsonView(Views.Long.class)
+    @GetMapping("/order/deliverytime/{id}")
+    public Order returnDeliveryTime(@PathVariable String id) {
+        Order costumerAllOrders;
+        try {
+            int costumer_id2 = Integer.parseInt(id);
+            for (Order order : pizzaOrders) {
+                if (order.getCostumer_id() == costumer_id2) {
+
+                    return order;
+                }
+            }
+            throw new ApiRequestException("Order not found", "404");
+        }
+        catch (Exception e) {
+            throw new ApiRequestException("Order not found", "404");
+        }
+    }
+
 /**
     SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.serializeAllExcept("toppings", "note");
     FilterProvider filterProvider = new SimpleFilterProvider().addFilter("toppings_note_filter", simpleBeanPropertyFilter);

@@ -1,18 +1,32 @@
 package com.example.demo.Pizza;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.sql.Time;
 
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Timer;
+import java.time.LocalDateTime;
+
 
 public class Order {
+    @JsonView(Views.Short.class)
     private int customer_id;
     private  static int numberOfOrders =1;
     private int order_id;
+    @JsonView(Views.Short.class)
     private String status;
+    @JsonView(Views.Short.class)
     private String payment_type;
-    private Time initial_time;
-    private Time delivery_time; //expected delivery time
+    @JsonView(Views.Short.class)
+    private final LocalDateTime initialTime;
+    @JsonView(Views.Long.class)
+    private final LocalDateTime deliveryTime;
+    @JsonView(Views.Short.class)
     private List <Pizza> pizzas;
     private DeliveryAddress delivery_address;
     private final boolean takeaway;
@@ -27,28 +41,24 @@ public class Order {
         if (takeaway==false){
             this.delivery_address= delivery_address;
         }
+        initialTime = LocalDateTime.now();
+        deliveryTime = LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES));
 
         Timer countTime = new Timer();
         //set up initial time
         //decide on expected delivery time
 
     }
+
     public int getCostumer_id(){
         return customer_id;
     }
-
-    public Time getInitial_time(){ //when was the pizza ordered
-        return initial_time;
+    public LocalDateTime getInitialTime() {
+        return initialTime;
     }
-
-    public Time getWaitingTime(){  //return total time that client has been waiting in minutes
-        return initial_time;
+    public LocalDateTime getDeliveryTime() {
+        return deliveryTime;
     }
-
-    public Time getDelivery_time(){
-        return delivery_time;
-    }
-
     public static int getNumberOfOrders() {
         return numberOfOrders;
     }
