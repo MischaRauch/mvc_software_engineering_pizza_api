@@ -8,7 +8,7 @@ import java.util.Timer;
 public class Order {
     private int customer_id;
     private  static int numberOfOrders =1;
-    private int id;
+    private int order_id;
     private String status;
     private String payment_type;
     private Time initial_time;
@@ -20,7 +20,7 @@ public class Order {
     public Order(String payment_type, DeliveryAddress delivery_address, boolean takeaway, int customer_id, List <Pizza> order) {
         status = "In Progress";
         this.pizzas = order;
-        this.id = numberOfOrders; numberOfOrders++;
+        this.order_id = numberOfOrders; numberOfOrders++;
         this.customer_id = customer_id;
         this.payment_type = payment_type;
         this.takeaway = takeaway;
@@ -53,8 +53,8 @@ public class Order {
         return numberOfOrders;
     }
 
-    public int getId() {
-        return id;
+    public int order_id() {
+        return order_id;
     }
 
     public String getStatus() {
