@@ -1,8 +1,4 @@
 package com.example.demo.Pizza;
-
-import java.util.Arrays;
-import java.util.List;
-//http://localhost:8080/api/v1/pizza
 public class Pizza {
 
     private static int idCounter = 0;
@@ -12,7 +8,6 @@ public class Pizza {
     private double price;
     private String note;
     private String name;
-   // private final List<String> toppings = Arrays.asList(topping);
     private final double defaultPrice = 13;
 
     public Pizza() {
