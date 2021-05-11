@@ -51,10 +51,23 @@ public class Order {
         //decide on expected delivery time
 
     }
+    public void findPizzasByID(List<Pizza> menu){
+        for (int i =0; i<pizzas.size(); i++){
+            for (int j=0; j<menu.size(); j++){
+                if (pizzas.get(i).getPizza_id()==menu.get(j).getPizza_id()){
+                    pizzas.get(i).setName( menu.get(j).getName());
+                    pizzas.get(i).setPrice( menu.get(j).getPrice());
+                    pizzas.get(i).setToppings( menu.get(j).getToppings());
+                    pizzas.get(i).setVegetarian( menu.get(j).getVegetarian());
+                }
+            }
+        }
+    }
 
     public int getCostumer_id(){
         return customer_id;
     }
+
     public LocalDateTime getInitialTime() {
         return initialTime;
     }

@@ -68,6 +68,7 @@ public class PizzaController {
 
     @PostMapping("/order")
     public Order createOrder(@RequestBody Order order) {
+        order.findPizzasByID(pizzaService.getPizza()); //initializing pizzas based on their ID
         pizzaOrders.add(order);
         //System.out.println(order.getCostumer_id());
         return order;

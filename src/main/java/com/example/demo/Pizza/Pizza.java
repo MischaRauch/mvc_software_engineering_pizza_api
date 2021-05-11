@@ -57,4 +57,24 @@ public class Pizza {
     public String toString() {
         return ("Pizza Type:"+this.getName());
     }
+
+    public static void setIdCounter(int idCounter) {
+        Pizza.idCounter = idCounter;
+    }
+
+    public void setToppings(String[] toppings) {
+        this.toppings = toppings;
+    }
+
+    public void setPizza_id(int pizza_id) {
+        this.pizza_id = pizza_id;
+    }
+
+    public void setVegetarian(boolean vegetarian) {
+        this.vegetarian = vegetarian;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }

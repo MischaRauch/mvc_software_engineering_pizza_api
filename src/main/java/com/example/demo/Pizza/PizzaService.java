@@ -34,5 +34,6 @@ public class PizzaService extends RuntimeException {
         menu.add(new Pizza("Hawaian",false, 12, ingredientsHawaian));
         menu.add(new Pizza("Spinnach", true, 10, ingredientsSpinnach));
     }
+
     
 }
