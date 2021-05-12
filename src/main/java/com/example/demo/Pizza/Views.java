@@ -6,4 +6,11 @@ public class Views {
 
     public static class Long extends Short {
     }
+    public static class DeliveryTime {
+
+    }
+    public static class CancelOrder {
+
+    }
 }
+

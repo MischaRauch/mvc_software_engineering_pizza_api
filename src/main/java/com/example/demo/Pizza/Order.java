@@ -14,22 +14,26 @@ import java.time.LocalDateTime;
 
 
 public class Order {
-    @JsonView(Views.Short.class)
+    @JsonView(Views.DeliveryTime.class)
     private int customer_id;
     private  static int numberOfOrders =1;
+    @JsonView({Views.CancelOrder.class, Views.DeliveryTime.class})
     private int order_id;
-    @JsonView(Views.Short.class)
+    @JsonView({Views.CancelOrder.class, Views.DeliveryTime.class})
     private String status;
-    @JsonView(Views.Short.class)
+    @JsonView(Views.DeliveryTime.class)
     private String payment_type;
-    @JsonView(Views.Short.class)
-    private final LocalDateTime initialTime;
-    @JsonView(Views.Long.class)
+    @JsonView(Views.DeliveryTime.class)
+    private final LocalDateTime ordered_at;
+    @JsonView(Views.DeliveryTime.class)
     private final LocalDateTime deliveryTime;
-    @JsonView(Views.Short.class)
+    @JsonView(Views.DeliveryTime.class)
     private List <Pizza> pizzas;
+    @JsonView(Views.DeliveryTime.class)
     private DeliveryAddress delivery_address;
+    @JsonView(Views.DeliveryTime.class)
     private final boolean takeaway;
+    @JsonView(Views.DeliveryTime.class)
     private String note;
 
     public Order(String payment_type, DeliveryAddress delivery_address, boolean takeaway, int customer_id, List <Pizza> order, String note) {
@@ -43,7 +47,7 @@ public class Order {
         if (takeaway==false){
             this.delivery_address= delivery_address;
         }
-        initialTime = LocalDateTime.now();
+        ordered_at = LocalDateTime.now();
         deliveryTime = LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES));
 
         Timer countTime = new Timer();
@@ -68,8 +72,8 @@ public class Order {
         return customer_id;
     }
 
-    public LocalDateTime getInitialTime() {
-        return initialTime;
+    public LocalDateTime getOrdered_at() {
+        return ordered_at;
     }
     public LocalDateTime getDeliveryTime() {
         return deliveryTime;
@@ -103,7 +107,7 @@ public class Order {
 
     public int minutesPassed(){
        LocalDateTime currentTime = LocalDateTime.now();
-       return currentTime.minusMinutes(initialTime.getMinute()).getMinute();
+       return currentTime.minusMinutes(ordered_at.getMinute()).getMinute();
     }
 
     public void setStatus(String status){

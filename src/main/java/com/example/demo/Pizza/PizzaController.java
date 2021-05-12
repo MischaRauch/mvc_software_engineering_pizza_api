@@ -65,7 +65,7 @@ public class PizzaController {
             throw new ApiRequestException("Invalid ID supplied", "400");
         }
     }
-
+    @JsonView(Views.DeliveryTime.class)
     @PostMapping("/order")
     public Order createOrder(@RequestBody Order order) {
         order.findPizzasByID(pizzaService.getPizza()); //initializing pizzas based on their ID

@@ -1,5 +1,8 @@
 package com.example.demo.Pizza;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+@JsonView(Views.DeliveryTime.class)
 public class DeliveryAddress {
     private String street;
     private String city;

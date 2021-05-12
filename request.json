@@ -1,8 +1,15 @@
 {
-  "customer_id": "12",
+  "customer_id": 12,
   "payment_type": "payPal",
+  "takeaway": false,
+  "note": "meli sucks dicks",
+  "delivery_address": {
+    "street": "Tapijn",
+    "city": "maastricht",
+    "country": "NL",
+    "zipcode": "345q"
+  },
   "pizzas": [ {
-      "type": "hawai",
-      "note": "dick"
+      "pizza_id":  "1"
     }]
 }
