@@ -92,6 +92,7 @@ public class PizzaController {
         }
     }
 
+    @JsonView(Views.CancelOrder.class)
     @PutMapping("/order/cancel/{order_id}")
     public Order cancelOrder(@PathVariable String order_id) {
         Order order = null;
