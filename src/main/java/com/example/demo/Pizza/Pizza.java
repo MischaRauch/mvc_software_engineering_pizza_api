@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class Pizza {
     private static int idCounter = 0;
     private String[] toppings;
-    @JsonView(Views.DeliveryTime.class)
+    @JsonView({Views.DeliveryTime.class, Views.OrderNotTime.class})
     private int pizza_id;
     private boolean vegetarian;
     private double price;
