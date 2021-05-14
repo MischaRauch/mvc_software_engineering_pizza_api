@@ -1,5 +1,5 @@
 {
-  "customer_id": 12,
+  "customer_id": 10,
   "payment_type": "payPal",
   "takeaway": false,
   "note": "meli sucks dicks",
@@ -10,6 +10,6 @@
     "zipcode": "345q"
   },
   "pizzas": [ {
-      "pizza_id":  "1"
+      "pizza_id":  "3"
     }]
 }

@@ -1,20 +1,11 @@
 package com.example.demo.Pizza;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.example.demo.exception.ApiRequestException;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,44 +36,42 @@ public class PizzaController {
         }
     }
 
-    @JsonView(Views.Short.class)
+    @JsonView(Views.OrderNotTime.class)
     @GetMapping("/order/{costumer_id}")
     public List<Order> returnAllOrders(@PathVariable String costumer_id) {
         List<Order> costumerAllOrders = new ArrayList<>();
-        System.out.println("SIZE " + costumerAllOrders.size());
+        int costumer_id2;
         try {
-            int costumer_id2 = Integer.parseInt(costumer_id);
-            for (int i = 0; i < pizzaOrders.size(); i++) {
-                System.out.println("CUSTOMER ID 1 " + pizzaOrders.get(i).getCostumer_id());
-                System.out.println("CUSTOMER ID 2 " + costumer_id2);
-                if (pizzaOrders.get(i).getCostumer_id() == costumer_id2) {
-                    costumerAllOrders.add(pizzaOrders.get(i));
-                    return costumerAllOrders;
-                }
-            }
-            throw new ApiRequestException("Customer ID not found", "404");
-        } catch (Exception e) {
+            costumer_id2 = Integer.parseInt(costumer_id);
+        }
+        catch (Exception e) {
             throw new ApiRequestException("Invalid ID supplied", "400");
         }
+        for (int i = 0; i < pizzaOrders.size(); i++) {
+            if (pizzaOrders.get(i).getCostumer_id() == costumer_id2) {
+                costumerAllOrders.add(pizzaOrders.get(i));
+                return costumerAllOrders;
+            }
+        }
+        throw new ApiRequestException("Customer ID not found", "404");
     }
+
     @JsonView(Views.DeliveryTime.class)
     @PostMapping("/order")
     public Order createOrder(@RequestBody Order order) {
         order.findPizzasByID(pizzaService.getPizza()); //initializing pizzas based on their ID
         pizzaOrders.add(order);
-        //System.out.println(order.getCostumer_id());
         return order;
     }
 
-    @JsonView(Views.Long.class)
+    @JsonView(Views.DeliveryTime.class)
     @GetMapping("/order/deliverytime/{id}")
     public Order returnDeliveryTime(@PathVariable String id) {
         Order costumerAllOrders;
         try {
-            int costumer_id2 = Integer.parseInt(id);
+            int id2 = Integer.parseInt(id);
             for (Order order : pizzaOrders) {
-                if (order.getCostumer_id() == costumer_id2) {
-
+                if (order.getOrder_id() == id2) {
                     return order;
                 }
             }

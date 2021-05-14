@@ -1,8 +1,9 @@
 package com.example.demo.Pizza;
 
+import com.example.demo.exception.ApiRequestException;
 import com.fasterxml.jackson.annotation.JsonView;
 
-@JsonView(Views.DeliveryTime.class)
+@JsonView({Views.DeliveryTime.class, Views.OrderNotTime.class})
 public class DeliveryAddress {
     private String street;
     private String city;
@@ -10,6 +11,9 @@ public class DeliveryAddress {
     private String zipcode;
 
     public DeliveryAddress (String street, String city, String country, String zipcode){
+       if (street == null || city == null || country == null || zipcode == null) {
+           throw new ApiRequestException("The format of the object is not valid", "400");
+       }
        this.street= street;
        this.city= city;
        this.country= country;
