@@ -51,8 +51,6 @@ public class Order {
         deliveryTime = LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES));
 
         Timer countTime = new Timer();
-        //set up initial time
-        //decide on expected delivery time
 
     }
     public void findPizzasByID(List<Pizza> menu){
