@@ -56,8 +56,6 @@ public class Order {
         ordered_at = LocalDateTime.now();
         deliveryTime = LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES));
 
-        //Meli, do you use this? I don't
-        Timer countTime = new Timer();
 
     }
     public void findPizzasByID(List<Pizza> menu){
@@ -116,6 +114,15 @@ public class Order {
     public int minutesPassed(){
        LocalDateTime currentTime = LocalDateTime.now();
        return currentTime.minusMinutes(ordered_at.getMinute()).getMinute();
+    }
+
+    public boolean checkIfDelivered (){
+        LocalDateTime currentTime = LocalDateTime.now();
+        if ( currentTime.isAfter(deliveryTime) || currentTime.isEqual(deliveryTime) ){
+            setStatus(("delivered"));
+            return true;
+        }
+        return false;
     }
 
     public void setStatus(String status){

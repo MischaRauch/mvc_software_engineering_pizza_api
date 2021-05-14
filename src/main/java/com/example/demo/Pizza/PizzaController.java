@@ -2,6 +2,7 @@ package com.example.demo.Pizza;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.example.demo.exception.ApiRequestException;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -19,6 +20,21 @@ public class PizzaController {
     public PizzaController(PizzaService pizzaService) {
         this.pizzaService = pizzaService;
         this.pizzaOrders = new ArrayList<>();
+
+        Thread thread = new Thread() { //changing status to delivered
+            public void run() {
+                while (true) {
+                    for (int i = 0; i < pizzaOrders.size(); i++) {
+                        pizzaOrders.get(i).checkIfDelivered();
+                    }
+                    try {
+                        TimeUnit.MINUTES.sleep(1);   //this means that stops the while for 1 minute and then starts again
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }; thread.start();
     }
 
     @GetMapping("/pizza")
