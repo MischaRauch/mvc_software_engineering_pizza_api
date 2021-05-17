@@ -9,14 +9,17 @@ import org.json.*;
 public class Client2 {
 
     public static void main (String [] args){
+    }
+
+    public static void getMenu (){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/api/v1/pizza")).build();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
-                .thenApply(Client2::parse)
+                //.thenApply(Client2::parse)
+                .thenAccept(System.out::println)
                 .join();
     }
-
 
     public static String parse(String responseBody){
         JSONArray albums = new JSONArray(responseBody);
