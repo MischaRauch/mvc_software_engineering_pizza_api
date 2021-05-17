@@ -1,4 +1,4 @@
-package main.java.com.example.demo.Pizza;
+package com.example.demo.Pizza;
 
 public class Views {
     public static class DeliveryTime {

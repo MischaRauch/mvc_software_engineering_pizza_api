@@ -1,4 +1,4 @@
-package main.java.com.example.demo.Pizza;
+package com.example.demo.Pizza;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

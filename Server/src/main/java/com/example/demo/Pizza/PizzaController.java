@@ -1,4 +1,4 @@
-package main.java.com.example.demo.Pizza;
+package com.example.demo.Pizza;
 
 import java.util.ArrayList;
 import java.util.List;

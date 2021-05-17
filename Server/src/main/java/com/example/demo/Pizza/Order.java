@@ -1,4 +1,4 @@
-package main.java.com.example.demo.Pizza;
+package com.example.demo.Pizza;
 
 import main.java.com.example.demo.exception.ApiRequestException;
 import com.fasterxml.jackson.annotation.JsonView;
