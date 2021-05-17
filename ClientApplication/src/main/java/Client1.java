@@ -45,7 +45,7 @@ public class Client1 {
         }
         connection.setRequestMethod(typeOfRequest);
         connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        connection.setRequestProperty("Accept", "applicaton/json");
+        connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
         connection.setConnectTimeout(5000); //if after 5 seconds the connection is not reached, is timeout
         connection.setReadTimeout(5000);
