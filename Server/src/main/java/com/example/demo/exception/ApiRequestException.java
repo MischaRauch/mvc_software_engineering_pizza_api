@@ -1,4 +1,4 @@
-package main.java.com.example.demo.exception;
+package com.example.demo.exception;
 
 public class ApiRequestException extends RuntimeException{
     private static String errorCode;

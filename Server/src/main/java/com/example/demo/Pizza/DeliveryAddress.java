@@ -1,6 +1,6 @@
 package com.example.demo.Pizza;
 
-import main.java.com.example.demo.exception.ApiRequestException;
+import com.example.demo.exception.ApiRequestException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @JsonView({Views.DeliveryTime.class, Views.OrderNotTime.class})

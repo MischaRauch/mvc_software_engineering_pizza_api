@@ -85,7 +85,6 @@ public class Client2 {
         else if (menu == 6) {
 
         }
-
     }
     public static void getCompleteInput(int menu, int id) {
         if (menu == 2) {
