@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Client1 {
     private static HttpURLConnection connection;
     public static String serverAdress;
+    public static String initalServerAdress;
     public static Scanner s1 = new Scanner(System.in);
     public static InputStreamReader ir = new InputStreamReader(System. in );
     public static BufferedReader br = new BufferedReader(ir);
@@ -21,6 +22,7 @@ public class Client1 {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         serverAdress = getServerInput();
+        initalServerAdress = serverAdress;
         int menuResult = mainMenu();
         if (menuResult == 7) {
             loop = false;
@@ -34,14 +36,17 @@ public class Client1 {
             } else {
                 getCompleteInput(menuResult);
             }
-            // System.out.println("SERVER ADRESS " + serverAdress);
+            System.out.println("SERVER ADRESS " + serverAdress);
 
             URL url = new URL(serverAdress);
             String reqBody2 = null;
+            System.out.println("URL ADRESS " + url);
+
 
             clientManagement(reqBody, url, typeOfRequest);
 
             menuResult = mainMenu();
+            serverAdress = initalServerAdress;
             if (menuResult == 7) {
                 loop = false;
             }
