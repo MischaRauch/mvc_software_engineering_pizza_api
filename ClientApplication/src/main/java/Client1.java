@@ -16,23 +16,36 @@ public class Client1 {
     public static BufferedReader br = new BufferedReader(ir);
     public static String typeOfRequest = "GET";
     public static String reqBody;
+    public static boolean loop = true;
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
         serverAdress = getServerInput();
         int menuResult = mainMenu();
-        if (menuResult == 2 || menuResult == 3 || menuResult == 4 || menuResult == 6) {
-            int id = getID();
-            getCompleteInput(menuResult, id);
-        } else {
-            getCompleteInput(menuResult);
+        if (menuResult == 7) {
+            loop = false;
         }
-       // System.out.println("SERVER ADRESS " + serverAdress);
 
-        URL url = new URL(serverAdress);
-        String reqBody2 = null;
+        while (loop) {
 
-        clientManagement(reqBody, url, typeOfRequest);
+            if (menuResult == 2 || menuResult == 3 || menuResult == 4 || menuResult == 6) {
+                int id = getID();
+                getCompleteInput(menuResult, id);
+            } else {
+                getCompleteInput(menuResult);
+            }
+            // System.out.println("SERVER ADRESS " + serverAdress);
+
+            URL url = new URL(serverAdress);
+            String reqBody2 = null;
+
+            clientManagement(reqBody, url, typeOfRequest);
+
+            menuResult = mainMenu();
+            if (menuResult == 7) {
+                loop = false;
+            }
+        }
 
     }
 
@@ -134,6 +147,7 @@ public class Client1 {
         System.out.println("4: get /Order/deliverytime/{order_id}");
         System.out.println("5: post /Order");
         System.out.println("6: put /Order/cancel/{order_id}");
+        System.out.println("7: exit");
         try {
             int choosed = s1.nextInt();
             return choosed;
