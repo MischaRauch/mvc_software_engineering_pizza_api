@@ -15,7 +15,7 @@ public class Client1 {
     public static Scanner s1 = new Scanner(System.in);
     public static InputStreamReader ir = new InputStreamReader(System. in );
     public static BufferedReader br = new BufferedReader(ir);
-    public static String typeOfRequest = "GET";
+    public static String typeOfRequest;
     public static String reqBody;
     public static boolean loop = true;
 
@@ -36,11 +36,13 @@ public class Client1 {
             } else {
                 getCompleteInput(menuResult);
             }
-            System.out.println("SERVER ADRESS " + serverAdress);
 
+            setTypeOfRequest(menuResult);
             URL url = new URL(serverAdress);
-            String reqBody2 = null;
+
+            System.out.println("SERVER ADRESS " + serverAdress);
             System.out.println("URL ADRESS " + url);
+            System.out.println("PERFORM "+typeOfRequest);
 
 
             clientManagement(reqBody, url, typeOfRequest);
@@ -50,6 +52,7 @@ public class Client1 {
             if (menuResult == 7) {
                 loop = false;
             }
+            reqBody = null;
         }
 
     }
@@ -57,6 +60,7 @@ public class Client1 {
 
     //typeOfRequest needs to have "" and capytal letters
     public static void clientManagement(String reqBody, URL url, String typeOfRequest) throws IOException {
+        System.out.println("IN THE METHOD "+typeOfRequest);
         try {
             // URL url = new URL("http://localhost:8080/api/v1/pizza");
             connection = (HttpURLConnection) url.openConnection();
@@ -182,7 +186,6 @@ public class Client1 {
             serverAdress = serverAdress + "/order/deliverytime/" + id;
         } else if (menu == 6) {
             serverAdress = serverAdress + "/order/cancel/" + id;
-            typeOfRequest = "PUT";
         }
     }
     public static void getCompleteInput(int menu){
@@ -194,7 +197,6 @@ public class Client1 {
         }
     }
     public static void getOrder() {
-        typeOfRequest = "POST";
         System.out.println("Insert your customer id: ");
         int customerID = s1.nextInt();
         System.out.println("Insert your payment Method");
@@ -229,6 +231,17 @@ public class Client1 {
                 "    }\n" +
                 "]\n" +
                 "  }";
+    }
+    public static void setTypeOfRequest(int perform) {
+        if (perform == 6) {
+            typeOfRequest = "PUT";
+        }
+        else if (perform == 5) {
+            typeOfRequest = "POST";
+        }
+        else {
+            typeOfRequest = "GET";
+        }
     }
 }
 
