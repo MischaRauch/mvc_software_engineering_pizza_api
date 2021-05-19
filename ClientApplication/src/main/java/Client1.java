@@ -103,11 +103,13 @@ public class Client1 {
             reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
              while ((line = reader.readLine())!= null){
                  responseContent.append(line);
+                 responseContent.append(System.getProperty("line.separator"));
              }
         } else {
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             while ((line = reader.readLine()) != null) {
                 responseContent.append(line);
+                responseContent.append(System.getProperty("line.separator"));
             }
         }
 
