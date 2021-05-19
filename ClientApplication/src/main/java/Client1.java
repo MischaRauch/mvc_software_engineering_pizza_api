@@ -102,7 +102,6 @@ public class Client1 {
         String line;
         StringBuffer responseContent = new StringBuffer();
 
-
         //read the response
         if (status > 299) { //it means theres an error
             reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
@@ -125,26 +124,12 @@ public class Client1 {
 
     }
 
-
-    public static String parse(String responseBody) {
-        JSONArray albums = new JSONArray(responseBody);
-        for (int i = 0; i < albums.length(); i++) {
-            JSONObject album = albums.getJSONObject(i);
-            JSONArray toppings = album.getJSONArray("toppings");
-            int pizza_id = album.getInt("pizza_id");
-            boolean vegetarian = album.getBoolean("vegetarian");
-            double price = album.getDouble("price");
-            String name = album.getString("name");
-            System.out.println("pizza_id: " + pizza_id + " " + pizza_id + " " + vegetarian);
-        }
-        return null;
-    }
-
     public static String getServerInput() {
         System.out.println("Input the server adress to connect the Client: ");
         String input = s1.nextLine();
         return input;
     }
+
     public static int mainMenu() {
         System.out.println("\n Choose one of the following actions: ");
         System.out.println("Insert the corelated number");
