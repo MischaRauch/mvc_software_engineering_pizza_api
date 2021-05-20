@@ -60,7 +60,7 @@ public class Client1 {
 
     //typeOfRequest needs to have "" and capytal letters
     public static void clientManagement(String reqBody, URL url, String typeOfRequest) throws IOException {
-        System.out.println("IN THE METHOD "+typeOfRequest);
+        //System.out.println("IN THE METHOD "+typeOfRequest);
         try {
             // URL url = new URL("http://localhost:8080/api/v1/pizza");
             connection = (HttpURLConnection) url.openConnection();
@@ -90,7 +90,6 @@ public class Client1 {
                  out.close();
                  */
             } catch (Exception e) {
-                System.out.println("Line 65");
                 e.printStackTrace();
             }
 
@@ -123,7 +122,6 @@ public class Client1 {
 
         //  reader.close();
         System.out.println(responseContent.toString());
-        //parse (responseContent.toString());
         connection.disconnect();
 
     }
@@ -186,9 +184,9 @@ public class Client1 {
         int customerID = s1.nextInt();
         System.out.println("Insert your payment Method");
         String paymentMethod = s1.next();
-        System.out.println("Takeaway?");
+        System.out.println("Takeaway? (True or False)");
         boolean takeaway = s1.nextBoolean();
-        System.out.println("Add a note if needed:");
+        System.out.println("Add a note if needed: (Separate words with cappital letters, eg: carefulWithTheDog.");
         String note = s1.next();
         System.out.println("Add your street:");
         String street = s1.next();
