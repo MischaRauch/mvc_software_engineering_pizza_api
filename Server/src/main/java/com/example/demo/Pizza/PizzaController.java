@@ -42,10 +42,10 @@ public class PizzaController {
         return pizzaService.getPizza();
     }
 
-    @GetMapping(path = "/pizza/{id}")
-    public Pizza returnSinglePizza(@PathVariable String id) {
+    @GetMapping(path = "/pizza/{pizza_id}")
+    public Pizza returnSinglePizza(@PathVariable String pizza_id) {
         try {
-            int id2 = Integer.parseInt(id);
+            int id2 = Integer.parseInt(pizza_id);
             return pizzaService.getSinglePizza(id2);
         } catch (Exception e) {
             throw new ApiRequestException("Pizza not found", "404");
@@ -53,23 +53,21 @@ public class PizzaController {
     }
 
     @JsonView(Views.OrderNotTime.class)
-    @GetMapping("/order/{costumer_id}")
-    public List<Order> returnAllOrders(@PathVariable String costumer_id) {
-        List<Order> costumerAllOrders = new ArrayList<>();
-        int costumer_id2;
+    @GetMapping("/order/{order_id}")
+    public Order returnAllOrders(@PathVariable String order_id) {
+        int order_id2;
         try {
-            costumer_id2 = Integer.parseInt(costumer_id);
+            order_id2 = Integer.parseInt(order_id);
         }
         catch (Exception e) {
             throw new ApiRequestException("Invalid ID supplied", "400");
         }
-        for (int i = 0; i < pizzaOrders.size(); i++) {
-            if (pizzaOrders.get(i).getCostumer_id() == costumer_id2) {
-                costumerAllOrders.add(pizzaOrders.get(i));
-                return costumerAllOrders;
+        for (Order order : pizzaOrders) {
+            if (order.getOrder_id() == order_id2) {
+                return order;
             }
         }
-        throw new ApiRequestException("Customer ID not found", "404");
+        throw new ApiRequestException("Order ID not found", "404");
     }
 
     @JsonView(Views.DeliveryTime.class)
@@ -81,21 +79,23 @@ public class PizzaController {
     }
 
     @JsonView(Views.DeliveryTime.class)
-    @GetMapping("/order/deliverytime/{id}")
-    public Order returnDeliveryTime(@PathVariable String id) {
-        Order costumerAllOrders;
+    @GetMapping("/order/deliverytime/{order_id}")
+    public Order returnDeliveryTime(@PathVariable String order_id) {
+        int id2;
         try {
-            int id2 = Integer.parseInt(id);
+            id2 = Integer.parseInt(order_id);
+        }
+        catch (Exception e) {
+            throw new ApiRequestException("Invalid ID supplied", "400");
+        }
             for (Order order : pizzaOrders) {
                 if (order.getOrder_id() == id2) {
                     return order;
                 }
             }
-            throw new ApiRequestException("Order not found", "404");
-        } catch (Exception e) {
-            throw new ApiRequestException("Order not found", "404");
-        }
+        throw new ApiRequestException("Order not found", "404");
     }
+
 
     @JsonView(Views.CancelOrder.class)
     @PutMapping("/order/cancel/{order_id}")
