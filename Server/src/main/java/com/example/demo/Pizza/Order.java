@@ -34,11 +34,6 @@ public class Order {
 
     public Order(String payment_type, DeliveryAddress delivery_address, boolean takeaway, int customer_id, List <Pizza> order, String note) {
         if (payment_type == null || delivery_address == null || customer_id == 0) {
-            System.out.println("Got here");
-            System.out.println("payemnet "+ payment_type);
-            System.out.println("delivery "+ delivery_address);
-            System.out.println("id "+ customer_id);
-            System.out.println("order "+ order);
             throw new ApiRequestException("The format of the object is not valid", "400");
         }
 
@@ -49,9 +44,7 @@ public class Order {
         this.payment_type = payment_type;
         this.takeaway = takeaway;
         this.note = note;
-        if (takeaway==false){
-            this.delivery_address= delivery_address;
-        }
+        this.delivery_address = delivery_address;
         ordered_at = LocalDateTime.now();
         deliveryTime = LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES));
 

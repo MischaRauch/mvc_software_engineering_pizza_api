@@ -1,11 +1,7 @@
-import org.json.JSONArray;
-import org.json.JSONObject;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Client1 {
@@ -40,9 +36,9 @@ public class Client1 {
             setTypeOfRequest(menuResult);
             URL url = new URL(serverAdress);
 
-            System.out.println("SERVER ADRESS " + serverAdress);
-            System.out.println("URL ADRESS " + url);
-            System.out.println("PERFORM "+typeOfRequest);
+           // System.out.println("SERVER ADRESS " + serverAdress);
+           // System.out.println("URL ADRESS " + url);
+           // System.out.println("PERFORM "+typeOfRequest);
 
 
             clientManagement(reqBody, url, typeOfRequest);
@@ -60,11 +56,9 @@ public class Client1 {
 
     //typeOfRequest needs to have "" and capytal letters
     public static void clientManagement(String reqBody, URL url, String typeOfRequest) throws IOException {
-        //System.out.println("IN THE METHOD "+typeOfRequest);
-        try {
-            // URL url = new URL("http://localhost:8080/api/v1/pizza");
-            connection = (HttpURLConnection) url.openConnection();
 
+        try {
+            connection = (HttpURLConnection) url.openConnection();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -75,8 +69,6 @@ public class Client1 {
         connection.setConnectTimeout(5000); //if after 5 seconds the connection is not reached, is timeout
         connection.setReadTimeout(5000);
 
-       // System.out.println("my status : " + connection);
-
         if (reqBody != null) {
 
             StringBuffer response = new StringBuffer();
@@ -84,20 +76,12 @@ public class Client1 {
                 byte[] input = reqBody.getBytes("utf-8");
                 os.write(input, 0, input.length);
 
-                /**DataOutputStream out = new  DataOutputStream(os);
-                 out.writeBytes(reqBody);
-                 out.flush();
-                 out.close();
-                 */
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         connection.connect();
         int status = connection.getResponseCode();
-       // System.out.println(status);
-
 
         //READING INFO GIVEN BY SERVER
 
@@ -119,11 +103,9 @@ public class Client1 {
                 responseContent.append(System.getProperty("line.separator"));
             }
         }
-
         //  reader.close();
         System.out.println(responseContent.toString());
         connection.disconnect();
-
     }
 
     public static String getServerInput() {
@@ -137,7 +119,7 @@ public class Client1 {
         System.out.println("Insert the corelated number");
         System.out.println("1: get /Pizza");
         System.out.println("2: get /Pizza/{pizza_id}");
-        System.out.println("3: get /Order/{customer_id}");
+        System.out.println("3: get /Order/{order_id}");
         System.out.println("4: get /Order/deliverytime/{order_id}");
         System.out.println("5: post /Order");
         System.out.println("6: put /Order/cancel/{order_id}");
