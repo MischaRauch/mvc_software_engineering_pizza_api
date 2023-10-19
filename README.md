@@ -1,6 +1,8 @@
 # Pizza Service MVC Architecture
 ## Maastricht University | Course: Software Engineering
 
+## [Video with demonstration of the final product](https://www.youtube.com/watch?v=prDsPafub98&ab_channel=MischaRauch)
+
 ## Overview
 This repository contains a Client and Server architecture based on a Model-View-Controller architecture (MVC). The designed application resembled a Pizza ordering system designed for the Software Engineering course in LAB 6. The service communicates with clients over a REST API, and the code was written in Java.
 
